@@ -50,3 +50,10 @@ def test_me_returns_current_user(auth_client):
 
 def test_health(api_client):
     assert api_client.get("/api/health/").json() == {"status": "ok"}
+
+
+def test_root_redirects_to_api_docs(api_client):
+    response = api_client.get("/")
+
+    assert response.status_code == 302
+    assert response.url == "/api/docs/"
